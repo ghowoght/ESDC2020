@@ -1,0 +1,10 @@
+<launch>
+
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_openvino)/rviz/semantic_tagging.rviz" /> -->
+
+    <node name="semantic_tagging" pkg="ros_openvino" type="semantic_tagging" output="screen">
+        <param name="config"      value="$(find ros_openvino)/config/config.txt" />
+        <param name="explore_depth"      value="3.0" />
+    </node>
+
+</launch>

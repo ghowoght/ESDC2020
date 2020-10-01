@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="ros_openvino" name="message_scheduling" type="message_scheduling.py" output="screen">
+        <param name="model_num"    value="1"/>
+        <param name="model_path"    value="$(find ros_openvino)/config/model_path.txt" />
+    </node>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_openvino)/rviz/semantic_tagging.rviz" />
+</launch>

@@ -1,0 +1,4 @@
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/MobileNetSSD/MobileNetSSD_deploy.xml
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/MobileNetSSD/MobileNetSSD_deploy.bin
+8080
+background aeroplane bicycle bird boat bottle bus car cat chair cow diningtable dog horse motorbike person pottedplant sheep sofa train tvmonitor

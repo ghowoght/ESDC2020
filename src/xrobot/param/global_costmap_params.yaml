@@ -1,0 +1,7 @@
+global_costmap:
+  global_frame: map # 表示全局代价地图所在的参考系
+  robot_base_frame: base_link # 机器人本体的参考系
+  update_frequency: 1.0 # 5.0 # 代价地图更新频率
+  publish_frequency: 0.5
+  static_map: true　# 代价地图是否根据map_server提供的地图进行初始化
+  transform_tolerance: 0.5

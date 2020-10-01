@@ -1,0 +1,4 @@
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3/FP16/frozen_yolo_v3.xml
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3/FP16/frozen_yolo_v3.bin
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3/FP16/frozen_yolo_v3.labels
+8080

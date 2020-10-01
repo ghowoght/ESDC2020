@@ -1,0 +1,12 @@
+# 本地规划配置文件
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 1.0 # 5.0
+  publish_frequency: 1.0 # 2.0
+  static_map: false
+  rolling_window: true # 设置机器人在移动过程中是否需要滚动窗口，以保持机器人处于中心位置
+  width: 3.5 # 代价地图的宽度
+  height: 3.5 # 代价地图的长度
+  resolution: 0.025 # 0.05 # 代价地图的分辨率 米/格
+  transform_tolerance: 0.5

@@ -1,0 +1,1 @@
+/home/ghowoght/workplace/myrobot/src/ros_openvino/config/model_01_config.txt

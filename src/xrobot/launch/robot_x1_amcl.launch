@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find robot_x1)/launch/rplidar.launch" />
+
+  <node pkg="robot_x1" type="robot_node" name="robot_x1_node"/>
+
+  <arg name="map_file" default="$(find robot_x1)/maps/mymap.yaml"/>
+  <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" />
+
+  <include file="$(find robot_x1)/launch/amcl.launch" />
+  <include file="$(find robot_x1)/param/move_base.xml" />
+</launch>

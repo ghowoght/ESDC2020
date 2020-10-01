@@ -1,0 +1,13 @@
+<launch>
+  <include file="$(find xrobot)/launch/rplidar.launch" />
+
+  <node pkg="xrobot" type="robot_node" name="xrobot_node"/>
+
+  <!-- 导入地图 -->
+  <arg name="map_file" default="$(find xrobot)/maps/mymap.yaml"/>
+  <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" />
+
+  <include file="$(find xrobot)/launch/amcl.launch" />
+  <!-- 配置文件 -->
+  <include file="$(find xrobot)/config/move_base.xml" />
+</launch>

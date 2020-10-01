@@ -1,0 +1,15 @@
+# 通用配置文件
+obstacle_range: 2.5 # 机器人检测障碍物的最大范围/米
+raytrace_range: 3.0 # 机器人检测自由空间的最大范围/米
+footprint: [[-0.18, -0.24], [-0.18, 0.24], [0.18, 0.24], [0.18, -0.24]] # 机器人在二维地图上的占用面积
+inflation_radius: 0.2 # 障碍物的膨胀参数，也就是机器人和障碍物的最小安全距离
+transform_tolerance: 0.1
+
+observation_sources: scan # 传感器信息
+scan:
+  data_type: LaserScan
+  topic: scan
+  marking: true
+  clearing: true
+
+map_type: costmap
