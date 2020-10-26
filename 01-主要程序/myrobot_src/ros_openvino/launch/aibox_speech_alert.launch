@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="ros_openvino" name="speech_alert_schedule" type="aibox_speech_alert.py" output="screen"/>
+
+    <node pkg="ros_openvino" name="speech_alert" type="speech_alert.py"/>
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+    <!-- <include file="$(find realsense2_camera)/launch/rs_camera.launch"/> -->
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+      <remap from="image"       to="/camera/depth/image_rect_raw"/>
+      <remap from="camera_info" to="/camera/depth/camera_info"/>
+      <remap from="scan"        to="/camera/scan"/>
+      <!-- <param name="range_max" type="double" value="0.6"/> -->
+      <param name="range_min" type="double" value="0.1"/>
+      <param name="output_frame_id" value="camera_link"/>
+    </node>
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="camera_to_base_link" args="0 0 0 0 0 0  /map /camera_link    100"/> -->
+</launch>

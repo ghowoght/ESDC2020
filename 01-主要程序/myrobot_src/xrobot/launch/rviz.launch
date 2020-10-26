@@ -1,0 +1,4 @@
+<launch>
+    <!-- 可视化 -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find xrobot)/rviz/xrobot.rviz" />
+</launch>

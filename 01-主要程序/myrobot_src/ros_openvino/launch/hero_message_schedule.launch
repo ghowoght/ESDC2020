@@ -1,0 +1,18 @@
+<launch>
+    <!-- 第一个模型 -->
+    <node pkg="ros_openvino" name="message_schedule_node_0" type="hero_message_scheduling.py" output="screen">
+        <param name="model_id"    value="1"/>
+        <param name="model_config_path"    value="$(find ros_openvino)/config/model_yolo_tiny_config.txt" />
+    </node>
+    <node pkg="ros_openvino" name="yolov3_tiny" type="object_detection_yolov3_tiny.py"/>
+
+    <!-- 第二个模型 -->
+    <!-- <node pkg="ros_openvino" name="message_schedule_node_1" type="hero_message_scheduling.py" output="screen">
+        <param name="model_id"    value="2"/>
+        <param name="model_config_path"    value="$(find ros_openvino)/config/model_02_config.txt" />
+    </node>    
+    <node pkg="ros_openvino" name="mobilenet_ssd_1" type="object_detection_mobilenet_ssd_2.py"/> -->
+
+    <!-- 可视化 -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_openvino)/rviz/semantic_tagging.rviz" /> -->
+</launch>

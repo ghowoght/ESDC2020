@@ -1,0 +1,82 @@
+<launch>
+    <arg name="offline"          default="false"/>
+    <include unless="$(arg offline)" 
+        file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true"/>
+        <arg name="linear_accel_cov" value="1.0"/>
+        <arg name="unite_imu_method" value="linear_interpolation"/>
+    </include>
+    
+    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter">
+        <param name="use_mag" type="bool" value="false" />
+        <param name="_publish_tf" type="bool" value="false" />
+        <param name="_world_frame" type="string" value="enu" />
+        <remap from="/imu/data_raw" to="/camera/imu"/>
+    </node>
+
+    <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+        <arg name="args" value="--delete_db_on_start"/>
+        <arg name="rgb_topic" value="/camera/color/image_raw"/>
+        <arg name="depth_topic" value="/camera/aligned_depth_to_color/image_raw"/>
+        <arg name="camera_info_topic" value="/camera/color/camera_info"/>
+        <arg name="depth_camera_info_topic" value="/camera/depth/camera_info"/>
+        <arg name="rtabmapviz" value="false"/>
+        <arg name="rviz" value="false"/>
+        <arg name="frame_id" value="base2_link"/>
+        <arg name="map_frame_id"            default="map"/>
+          <arg name="odom_frame_id"           default="odom2"/>
+        <!-- <param name="subscribe_scan" type="bool" value="true"/> -->
+    </include>
+
+    <include file="$(find robot_localization)/launch/ukf_template.launch"/>
+    <param name="/ukf_se/frequency" value="300"/>
+    <param name="/ukf_se/base_link_frame" value="base2_link"/>
+    <param name="/ukf_se/odom0" value="rtabmap/odom"/>
+    <rosparam param="/ukf_se/odom0_config">[true,true,true,
+                                            true,true,true,
+                                            true,true,true,
+                                            true,true,true,
+                                            true,true,true]
+    </rosparam>
+    <param name="/ukf_se/odom0_relative" value="true"/>
+    <param name="/ukf_se/odom0_pose_rejection_threshold" value="10000000"/>
+    <param name="/ukf_se/odom0_twist_rejection_threshold" value="10000000"/>
+
+    <param name="/ukf_se/imu0" value="/imu/data"/>
+    <rosparam param="/ukf_se/imu0_config">[false, false, false,
+                                           true,  true,  true,
+                                           true,  true,  true,
+                                           true,  true,  true,
+                                           true,  true,  true]
+    </rosparam>
+    <param name="/ukf_se/imu0_differential" value="true"/>
+    <param name="/ukf_se/imu0_relative" value="false"/>
+    <param name="/ukf_se/use_control" value="false"/>
+    <!-- <param name="/ukf_se/odom0_config" value="{true,true,true,}"/> -->
+
+    <!-- 可视化 -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find xrobot)/rviz/xrobot.rviz" />
+
+    <include file="$(find xrobot)/config/mix_move_base.xml" />
+
+    <!-- 激光雷达 -->
+    <include file="$(find xrobot)/launch/rplidar.launch" />
+    <include file="$(find xrobot)/config/slam_gmapping.xml" />
+
+    <node pkg="xrobot" type="robot_node" name="xrobot_node"/>
+
+    <!-- 坐标系转换 -->
+    <node pkg="tf" type="static_transform_publisher" name="base2_link_to_camera" args="-0.12 0.06 0 0 0.12 0  /base2_link /camera_link    100"/>
+    <node pkg="tf" type="static_transform_publisher" name="odom2_to_base2_link" args="0 0 0 0 0 0  /odom2 /base2_link    100"/>
+
+    <!-- RGBD->SCAN -->
+    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+        <remap from="image"       to="/camera/depth/image_rect_raw"/>
+        <remap from="camera_info" to="/camera/depth/camera_info"/>
+        <remap from="scan"        to="/camera/scan"/>
+        <!-- <param name="range_max" type="double" value="0.6"/> -->
+        <param name="range_min" type="double" value="0.0"/>
+        <param name="output_frame_id" value="base_link"/>
+    </node>
+
+</launch>

@@ -1,0 +1,4 @@
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3_Tiny/yolov3-tiny.cfg
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3_Tiny/yolov3-tiny_15000.weights
+/home/ghowoght/workplace/myrobot/src/ros_openvino/models/Yolov3_Tiny/obj.names
+8080

@@ -1,0 +1,34 @@
+{
+    "object": [
+        "person",
+        "bottle",
+        "chair",
+        "dining table",
+        "tvmonitor"
+    ],
+    "obj_avail": [
+        "cola",
+        "maid",
+        "sprite"
+    ],
+    "obj_unavail": [
+        "person",
+        "chair",
+        "dining table",
+        "tvmonitor"
+    ],
+    "person": [
+        "Wei"
+    ],
+    "place": [
+        "saloon",
+        "bedroom",
+        "washroom",
+        "parlour"
+    ],
+    "emotion": [
+        "sad",
+        "neutral",
+        "happy"
+    ]
+}

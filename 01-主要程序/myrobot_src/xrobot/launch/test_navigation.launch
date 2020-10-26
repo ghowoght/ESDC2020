@@ -1,0 +1,31 @@
+<launch>
+  <!-- 激光雷达 -->
+  <include file="$(find xrobot)/launch/rplidar.launch" />
+  <!-- Realsense -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true"/>
+        <arg name="linear_accel_cov" value="1.0"/>
+        <arg name="unite_imu_method" value="linear_interpolation"/>
+  </include>
+  <!-- RGBD->SCAN -->
+  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+    <remap from="image"       to="/camera/depth/image_rect_raw"/>
+    <remap from="camera_info" to="/camera/depth/camera_info"/>
+    <remap from="scan"        to="/camera/scan"/>
+    <!-- <param name="range_max" type="double" value="0.6"/> -->
+    <param name="range_min" type="double" value="0.0"/>
+    <param name="output_frame_id" value="camera_link"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera" args="-0.12 0.06 0.36 0 0 0  /base_link /camera_link    100"/>
+  
+  <!-- 运动底盘 -->
+  <node pkg="xrobot" type="robot_node" name="xrobot_node"/>
+
+  <!-- 导入地图 -->
+  <arg name="map_file" default="$(find xrobot)/maps/mymap.yaml"/>
+  <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" />
+  <!-- 定位 -->
+  <include file="$(find xrobot)/launch/amcl.launch" />
+  <!-- 配置文件 -->
+  <include file="$(find xrobot)/config/move_base.xml" />
+</launch>

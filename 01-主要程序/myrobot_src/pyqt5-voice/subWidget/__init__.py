@@ -1,0 +1,1 @@
+from .matplotlibwidget import MatplotlibWidget

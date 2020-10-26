@@ -1,0 +1,15 @@
+<launch>
+    <!-- 语音提示 -->
+    <include file="$(find ros_openvino)/launch/aibox_speech_alert.launch" />
+
+    <!-- 可视化 -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find xrobot)/rviz/xrobot.rviz" />
+    <!-- 自主探索 -->
+    <include file="$(find explore_lite)/launch/explore_costmap.launch" />
+
+    <!-- <node pkg="ros_openvino" name="blank_0" type="blank_mobilenet_ssd.py"/>
+    <node pkg="ros_openvino" name="blank_1" type="blank_mobilenet_ssd.py"/> -->
+    
+    <!-- 三维建图 -->
+    <include file="$(find fast_mapping)/launch/fast_mapping.launch" />
+</launch>
